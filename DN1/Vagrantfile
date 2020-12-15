@@ -1,0 +1,30 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+  config.vm.network "forwarded_port", guest: 6081, host: 8080, host_ip: "127.0.0.1"
+
+  $script = <<~'SCRIPT'
+    apt-get update
+    DEBIAN_FRONTEND=noninteractive apt-get install -y xterm tightvncserver firefox xfce4 novnc websockify python-numpy
+    mkdir -p /home/vagrant/.vnc /opt/jre
+
+    wget -qO jre-8u271-linux-x64.tar.gz "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=243727_61ae65e088624f5aaa0b1d2d801acb16"
+    tar -zxf jre-8u271-linux-x64.tar.gz -C /opt/jre
+    rm jre-8u271-linux-x64.tar.gz
+    update-alternatives --install /usr/bin/java java /opt/jre/jre1.8.0_271/bin/java 100
+
+    cat <<EOF > /home/vagrant/.vnc/xstartup
+    !/bin/sh
+    startxfce4 &
+    EOF
+
+    chmod +x /home/vagrant/.vnc/xstartup
+    echo password | vncpasswd -f > /home/vagrant/.vnc/passwd
+    chmod 600 /home/vagrant/.vnc/passwd
+    touch /home/vagrant/.Xauthority
+    chown -R vagrant:vagrant /home/vagrant
+    sudo -u vagrant vncserver
+    websockify -D --web=/usr/share/novnc/ 6081 localhost:5901
+  SCRIPT
+
+  config.vm.provision "shell", inline: $script
+end

@@ -1,0 +1,33 @@
+#cloud-config
+users:
+  - name: jnlp
+    groups: sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+write_files:
+  - path: /home/jnlp/.vnc/xstartup
+    owner: jnlp:jnlp
+    permissions: 0755
+    content: |
+      #!/bin/sh
+      startxfce4 &
+packages:
+  - tightvncserver
+  - xfce4
+  - xterm
+  - firefox
+  - novnc
+  - websockify
+  - python-numpy
+runcmd:
+  - mkdir -p /home/jnlp/.vnc /opt/jre
+  - wget -qO jre-8u271-linux-x64.tar.gz "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=243727_61ae65e088624f5aaa0b1d2d801acb16"
+  - tar -zxf jre-8u271-linux-x64.tar.gz -C /opt/jre
+  - rm jre-8u271-linux-x64.tar.gz
+  - update-alternatives --install /usr/bin/java java /opt/jre/jre1.8.0_271/bin/java 100
+  - echo password | vncpasswd -f > /home/jnlp/.vnc/passwd
+  - chmod 600 /home/jnlp/.vnc/passwd
+  - touch /home/jnlp/.Xauthority
+  - chown -R jnlp:jnlp /home/jnlp
+  - sudo -u jnlp vncserver
+  - websockify -D --web=/usr/share/novnc/ 6081 localhost:5901
