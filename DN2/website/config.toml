@@ -1,0 +1,12 @@
+baseURL = "http://localhost:8080"
+title = "MSI DN2"
+
+[params]
+  dateform = "Jan 2, 2006"
+  themeColor = "#494f5c"
+
+[menu]
+  [[menu.main]]
+    name = "Show Date"
+    url = "date.html"
+    weight = 10
