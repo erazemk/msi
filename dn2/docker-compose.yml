@@ -23,8 +23,8 @@ services:
 #      - date-volume:/date/
 
   proxy:
-    image: traefik:alpine
-    command: --api.insecure=true --providers=docker
+    image: traefik:v2.3
+    command: --api.insecure=true --providers.docker
     ports:
       - "80:80"
       - "8080:8080"
