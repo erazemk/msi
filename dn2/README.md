@@ -10,6 +10,10 @@ tem naslovu).
 Za ogled trenutnega datuma/časa pritisnemo na `Show date` pod naslovom, ki nas preusmeri na `/date`,
 kjer se vsako sekundo doda nova vrstica z datumom/časom.
 
+Ob zaprtju vseh containerjev se volume-i še vedno ohranijo, zato jih moramo ročno odstraniti
+(v nasprotnem se bodo ohranili že obstoječe zapisani datumi).
+To lahko storimo z `docker-compose rm -f -v` (**pobriše vse volume!**).
+
 ## Proces izdelovanja naloge
 
 Med izdelavo je problem zaradi zasnove predstavljal `hugo`, ki ni prikazoval CSS, če ni uporabljen točen naslov strani,
