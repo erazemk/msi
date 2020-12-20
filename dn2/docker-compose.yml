@@ -5,7 +5,7 @@ services:
   web:
     build: website
     ports:
-      - "9999:80"
+      - "80:80"
     volumes:
       - date:/usr/share/nginx/html/date/
     networks:
@@ -14,7 +14,7 @@ services:
       - "traefik.enable=true"
       - "traefik.backend=nginx"
       - "traefik.docker.network=web"
-      - "traefik.port=3000"
+      - "traefik.port=80"
 
   clock:
     build: clock
@@ -31,7 +31,6 @@ services:
       - ./traefik.yml:/traefik.yml
     networks:
       - web
-      
 
 volumes:
   date:
