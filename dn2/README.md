@@ -2,9 +2,7 @@
 
 ## Navodila za uporabo
 
-Po prestavitvi v direktorij `DN2` zgradimo projekt z `docker(/podman)-compose up --build`
-(v primeru da docker ne prepozna `container-compose.yml` datoteke dodamo še `-f container-compose.yml` argument -
-pri izdelavi naloge sem uporabljal podman, ki podpira obe obliki, za docker pa ne vem če).
+Po prestavitvi v direktorij `DN2` zgradimo projekt z `docker(/podman)-compose up --build`.
 
 Spletna stran je nato dostopna na `http://localhost:8080` (in zaradi lastnosti `hugo` frameworka ekskluzivno na
 tem naslovu, drugače CSS ne bo deloval, a stran bo še vedno funkcionalna).
