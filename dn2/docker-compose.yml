@@ -2,25 +2,17 @@ version: '3'
 
 services:
 
-#  web:
-#    build: website
-#    volumes:
-#      - date-volume:/usr/share/nginx/html/date/
-#    ports:
-#      - "9999:80" # debugging
-#    networks:
-#      - web-network
-#    labels:
-#      - "traefik.enable=true"
-#      - "traefik.backend=web"
-#     - "traefik.docker.network=web-network"
-#      - "traefik.port=80"
-#      - "traefik.frontent.rule=Host:10.145.106.252"
+  web:
+    build: website
+    volumes:
+      - date-volume:/usr/share/nginx/html/date/
+    labels:
+      - "traefik.http.routers.web.rule=Host(`localhost`)"
 
-#  clock:
-#    build: clock
-#    volumes:
-#      - date-volume:/date/
+  clock:
+    build: clock
+    volumes:
+      - date-volume:/date/
 
   proxy:
     image: traefik:v2.3
@@ -30,11 +22,6 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-#    networks:
-#      - web-network
 
-#volumes:
-#  date-volume:
-
-#networks:
-#  web-network:
+volumes:
+  date-volume:
