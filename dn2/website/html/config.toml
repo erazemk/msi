@@ -8,5 +8,5 @@ title = "MSI DN2"
 [menu]
   [[menu.main]]
     name = "Show Date"
-    url = "date.html"
+    url = "/date/date.html"
     weight = 10

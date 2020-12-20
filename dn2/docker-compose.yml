@@ -7,12 +7,12 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./temp:/usr/share/nginx/html
+      - date:/usr/share/nginx/html/date
 
-#  clock:
-#    build: clock
-#    volumes:
-#      - date:/date
+  clock:
+    build: clock
+    volumes:
+      - date:/date
 
-#volumes:
-#  date:
+volumes:
+  date:

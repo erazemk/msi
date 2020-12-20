@@ -1,5 +1,6 @@
 #!/bin/sh
 
+[ ! -d /date ] && mkdir /date
 [ ! -f /date/date.html ] && touch /date/date.html
 
 while true; do
