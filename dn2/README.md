@@ -19,3 +19,6 @@ To lahko storimo z `docker-compose rm -f -v` (**pobriše vse volume!**).
 Med izdelavo je problem zaradi zasnove predstavljal `hugo`, ki ni prikazoval CSS, če ni uporabljen točen naslov strani,
 kar otežuje uporabo npr. https protokola in podobno. Ta problem se da rešiti z uporabo https protokola v hugo
 konfiguraciji in preusmeritvijo na https v nginx konfiguraciji, ampak v primeru te naloge to ni potrebno.
+
+Probleme so mi prav tako povzročali volume-i, ker je docker mislil da želim deliti direktorije, namesto posameznih
+datotek, kar sem rešil tako da sem v volume delil direktorij, namesto posamezne datoteke.
