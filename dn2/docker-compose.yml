@@ -1,18 +1,40 @@
-version: '2'
+version: '3'
 
 services:
 
   web:
     build: website
     ports:
-      - "8080:80"
+      - "9999:80"
     volumes:
       - date:/usr/share/nginx/html/date/
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=nginx"
+      - "traefik.docker.network=web"
+      - "traefik.port=3000"
 
   clock:
     build: clock
     volumes:
       - date:/date/
 
+  proxy:
+    image: traefik:v2.0
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yml:/traefik.yml
+    networks:
+      - web
+      
+
 volumes:
   date:
+
+networks:
+  web:
