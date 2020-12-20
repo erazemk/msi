@@ -4,6 +4,8 @@
 [ ! -f /date/date.html ] && touch /date/date.html
 
 while true; do
-    printf "%s <br>\n" "$(date)" >> "/date/date.html"
+    # Overwrites the file every time, otherwise scrolling messes things up
+    printf "%s\n" '<meta http-equiv="refresh" content="1">' > '/date/date.html'
+    printf "%s\n" "$(date '+%H:%M:%S (%A, %d. %m. %y)')" >> '/date/date.html'
     sleep 1
 done
