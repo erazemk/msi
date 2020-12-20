@@ -5,7 +5,7 @@
 Po prestavitvi v direktorij `DN2` zgradimo projekt z `docker(/podman)-compose up --build`.
 
 Spletna stran je nato dostopna na `http://localhost:8080` (in zaradi lastnosti `hugo` frameworka ekskluzivno na
-tem naslovu, drugače CSS ne bo deloval, a stran bo še vedno funkcionalna).
+tem naslovu).
 
 Za ogled trenutnega datuma/časa pritisnemo na `Show date` pod naslovom, ki nas preusmeri na `/date`,
 kjer se vsako sekundo doda nova vrstica z datumom/časom.
