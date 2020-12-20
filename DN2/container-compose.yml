@@ -1,6 +1,18 @@
-version: '3'
+version: '2'
+
 services:
+
   web:
-    build: .
+    build: website
     ports:
       - "8080:80"
+    volumes:
+      - date:/usr/share/nginx/html/date.html
+
+  clock:
+    build: clock
+    volumes:
+      - date:/date.html
+
+volumes:
+  date:
