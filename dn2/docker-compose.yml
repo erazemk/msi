@@ -4,8 +4,6 @@ services:
 
   web:
     build: website
-    ports:
-      - "80:80"
     volumes:
       - date:/usr/share/nginx/html/date/
     networks:
@@ -15,6 +13,7 @@ services:
       - "traefik.backend=nginx"
       - "traefik.docker.network=web"
       - "traefik.port=80"
+      - "traefik.frontent.rule=Host:localhost"
 
   clock:
     build: clock
