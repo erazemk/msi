@@ -1,6 +1,6 @@
 FROM jojomi/hugo AS build
 
-COPY website /website
+COPY html /website
 RUN hugo -s /website
 
 FROM nginx:alpine
