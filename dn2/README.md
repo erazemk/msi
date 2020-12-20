@@ -19,10 +19,3 @@ To lahko storimo z `docker-compose rm -f -v` (**pobriše vse volume!**).
 Med izdelavo je problem zaradi zasnove predstavljal `hugo`, ki ni prikazoval CSS, če ni uporabljen točen naslov strani,
 kar otežuje uporabo npr. https protokola in podobno. Ta problem se da rešiti z uporabo https protokola v hugo
 konfiguraciji in preusmeritvijo na https v nginx konfiguraciji, ampak v primeru te naloge to ni potrebno.
-
-
-Todo:
-
-* [x] hugo + nginx multistage build
-* [ ] traefik reverse proxy ?
-* [ ] letsencrypt ?
