@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Wait for the database to initialize
-sleep 15
-
 mysql --user=mysql --password=password --host=database -P 3306 <<EOF
 USE time;
 CREATE TABLE time (id INT AUTO_INCREMENT PRIMARY KEY, time VARCHAR(32) NOT NULL);
