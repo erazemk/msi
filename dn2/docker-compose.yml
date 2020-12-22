@@ -15,11 +15,6 @@ services:
        - MYSQL_INITDB_SKIP_TZINFO
     networks:
       - db-net
-    healthcheck:
-      test: /usr/bin/mysql --user=mysql --password=password --silent --execute \"SELECT 1;\"
-      interval: 15s
-      timeout: 10s
-      retries: 5
     labels:
       - "traefik.enable=false"
 
@@ -44,27 +39,14 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  readdb:
-    build: readdb
+  clock:
+    build: clock
     restart: always
-    container_name: reader
+    container_name: clock
     volumes:
       - date-volume:/date/
     networks:
       - db-net
-    depends_on:
-      - db
-    labels:
-      - "traefik.enable=false"
-  
-  writedb:
-    build: writedb
-    restart: always
-    container_name: writer
-    networks:
-      - db-net
-    depends_on:
-      - db
     labels:
       - "traefik.enable=false"
 
