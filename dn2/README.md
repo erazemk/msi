@@ -7,6 +7,7 @@ Po prestavitvi v direktorij `DN2` zgradimo projekt z `docker-compose up --build 
 Spletna stran je nato dostopna na `http://localhost(:80)`.
 Za ogled trenutnega datuma/časa pritisnemo na `Show date` pod naslovom, ki nas preusmeri na stran, kjer se prikaže
 trenutni čas, posodobljen vsako sekundo.
+Za prikaz časa moramo počakati, da se MySQL podatkovna baza inicializira (drugače se videla le prazna stran).
 
 Traefikov dashboard je dostopen na `http://localhost:8080` (traefik uporabljam za reverse-proxy).
 
@@ -27,23 +28,33 @@ Pri izdelavi sem se trudil upoštevati Docker best-practice, npr. uporaba majhni
 ker je večinoma tudi delovalo, le v primeru `traefika` ne, ker sem potreboval specifičen tag za to da sem dosegel
 svoj cilj.
 
-Prav tako sem poskrbel, da so zgrajene slike minimalne velikosti, brez namestitev nepotrebnih paketov in dodatnih
-slojev.
+Prav tako sem poskrbel, da so zgrajene slike minimalne velikosti, brez dodatnih slojev in namestitve nepotrebnih
+aplikacij (`mysql-client` je potreben za povezavo na bazo podatkov).
 
 Z uporabo multi-stage builda sem poskrbel, da bo končna slika vsebovala le nginx (oz. kar je v njegovi sliki) in
 generirane html datoteke, ne pa tudi build artifactov in kode, ki jo je uporabil hugo.
 
 ### Problemi pri izdelavi
 
-Med izdelavo je problem zaradi zasnove predstavljal `hugo`, ki ni prikazoval CSS, če ni uporabljen točen naslov strani,
-kar otežuje uporabo npr. https protokola in podobno. Ta problem se da rešiti z uporabo https protokola v hugo
-konfiguraciji in preusmeritvijo na https v nginx konfiguraciji, ampak v primeru te naloge to ni potrebno.
+Med izdelavo naloge sem naletel na nekaj težav, opisanih spodaj:
 
-Probleme so mi prav tako povzročali volume-i, ker je docker mislil da želim deliti direktorije, namesto posameznih
-datotek, kar sem rešil tako da sem v volume delil direktorij, namesto posamezne datoteke.
+1. Zaradi njegove zasnove `hugo` ni prikazoval CSS, če ni bil uporabljen točen naslov strani, kar otežuje uporabo
+npr. https protokola in podobno.
+Ta problem se da rešiti z uporabo https protokola v hugo konfiguraciji in preusmeritvijo na https v nginx konfiguraciji,
+ampak v primeru te naloge to ni potrebno.
 
-Problem je prav tako predstavljal `traefik`, ker sem ga prvič uporabljal, in za katerega sem se rabil naučiti
-podrobnosti konfiguracije (za kaj se uporabljajo določene labele in podobno).
+2. Probleme so mi prav tako povzročali volume-i, ker je docker mislil da želim deliti direktorije, namesto posameznih
+datotek, kar sem rešil tako da sem začel deliti direktorije namesto datotek.
+
+3. `traefik` sem uporabljal prvič, zato sem se rabil naučiti podrobnosti konfiguracije
+(za kaj se uporabljajo določene labele in podobno).
 Pri tem delu naloge sem porabil največ časa saj mi velikokrat konfiguracija ni delovala.
 Izkazalo se je, da je pravilna konfiguracija tudi najpreprostejša, saj je bila za pravilno delovanje potrebna le ena
 oznaka.
+
+4. Povezovanje na MySQL podatkovno bazo sprva ni delovalo, zato sem mislil da je problem v konfiguraciji,
+a se je baza le rabila inicializirati.
+Ker sem spisal skripte, ki se direktno povežejo na bazo sem imel probleme tudi z njimi, saj se niso mogli izvesti
+zaradi baze, ki še ni bila delujoča.
+Problem sem poskusil rešiti z dockerjevimi `healthcheck`-i, a to ni delovalo, tako da sem prilagodil skripto,
+da sama preverja, če je baza že postavljena, preden začne vanjo zapisovati.
