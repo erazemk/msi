@@ -45,9 +45,11 @@ services:
     container_name: database
     restart: always
     environment:
-       - MYSQL_USER=root
+       - MYSQL_USER=mysql
        - MYSQL_PASSWORD=password
-       - MYSQL_ALLOW_EMPTY_PASSWORD=true
+       - MYSQL_ROOT_PASSWORD=password
+       - MYSQL_DATABASE=time
+       - MYSQL_INITDB_SKIP_TZINFO
     networks:
       - db-net
     ports:
