@@ -4,10 +4,10 @@
 [ ! -f /date/date.html ] && touch /date/date.html
 
 # Init
-sleep 10
+sleep 15
 while ! mysql --user=mysql --password=password --host=database -P 3306 --silent --execute 'SELECT 1;' >/dev/null 2>&1; do
     echo "MySQL is not ready yet, waiting"
-    sleep 5
+    sleep 10
 done
 
 echo "Creating table 'time'"
