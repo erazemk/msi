@@ -24,7 +24,7 @@ while true; do
 
     # --- Branje iz baze ---
     echo "Reading from database"
-    DATE_OUT="$(mysql --user=mysql --password=password --host=database time -e "SELECT time from time ORDER BY id DESC LIMIT 1" -P 3306 -s | cut -d" " -f2)"
+    DATE_OUT="$(mysql --user=mysql --password=password --host=database time -e "SELECT time from time ORDER BY id DESC LIMIT 1" -P 3306 -s | cut -f2)"
     # Overwrites the file every time, otherwise scrolling messes things up
     echo '<meta http-equiv="refresh" content="1">' > /date/date.html
     echo "${DATE_OUT}" >> /date/date.html
