@@ -1,21 +1,36 @@
-version: '3'
+version: '3.1'
 
 services:
 
   web:
     build: website
+    container_name: website
+    restart: always
     volumes:
       - date-volume:/usr/share/nginx/html/date/
     labels:
       - "traefik.http.routers.web.rule=Host(`localhost`)"
 
-  clock:
-    build: clock
+  readdb:
+    build: readdb
+    restart: always
+    container_name: reader
     volumes:
       - date-volume:/date/
+    networks:
+      - db-net
+  
+  writedb:
+    build: writedb
+    restart: always
+    container_name: writer
+    networks:
+      - db-net
 
   proxy:
     image: traefik:v2.3
+    container_name: proxy
+    restart: always
     command: --api.insecure=true --providers.docker
     ports:
       - "80:80"
@@ -23,5 +38,20 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
+  # Ni volume-a ker za potrebe te naloge ne rabimo shraniti vsebine baze
+  db:
+    image: mysql
+    container_name: database
+    restart: always
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+    networks:
+      - db-net
+
 volumes:
   date-volume:
+
+networks:
+  db-net:
+    driver: bridge
