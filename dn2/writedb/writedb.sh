@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Wait for the database to initialize
+sleep 10
+
 mysql --user=root --password=password --host=database -P 3306 <<EOF
 CREATE DATABASE time;
 USE time;

@@ -10,6 +10,7 @@ services:
       - date-volume:/usr/share/nginx/html/date/
     labels:
       - "traefik.http.routers.web.rule=Host(`localhost`)"
+      - "traefik.http.services.web.loadbalancer.server.port=80"
 
   readdb:
     build: readdb
@@ -44,10 +45,13 @@ services:
     container_name: database
     restart: always
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
+       - MYSQL_USER=root
+       - MYSQL_PASSWORD=password
+       - MYSQL_ALLOW_EMPTY_PASSWORD=true
     networks:
       - db-net
+    ports:
+      - "3306:3306"
 
 volumes:
   date-volume:
