@@ -7,6 +7,6 @@ title = "MSI DN2"
 
 [menu]
   [[menu.main]]
-    name = "Show Date"
+    name = "Show Date (wait for db to initialize)"
     url = "/date/date.html"
     weight = 10
