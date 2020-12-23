@@ -2,17 +2,17 @@
 
 ## Navodila za uporabo
 
-Po končanem zagonu z `vagrant up` je dostop do VM-ja omogočen v brskalniku na naslovu `http://localhost:8080/vnc.html`
-ali `http://localhost:8080/vnc_lite.html` (brez SSL - nima smisla uporabljat samopodpisnega certifikata).
-Geslo za dostop je `password`.
+Po končanem zagonu z `vagrant up` je dostop do VM-ja omogočen v brskalniku na naslovu
+`http://localhost:6081/vnc_lite.html?password=password` (brez SSL - nima smisla uporabljat samopodpisnega certifikata).
+Geslo za dostop je `password` (pri uporabi zgornjega url-ja gesla ni potrebno vpisati).
 
-Pri cloud-init postavitvi je IP naslov drugačen (odvisen od npr. multipassa), vrata pa so 6081
-(url je tako `http://<multipass-ip>:6081/vnc(_lite).html`.
+Pri cloud-init postavitvi je IP naslov drugačen (odvisen od npr. multipassa), vrata pa so enaka
+(url je tako `http://<multipass-ip>:6081/vnc_lite.html?password=password`).
 
 Prav tako pri cloud-init izkoriščam dejstvo, da multipass uporablja sistemskega ubuntu uporabnika, zato `cloud-config.yaml`
 ne doda nobenega uporabnika in shrani datoteke v `/home/ubuntu`.
 V primeru, da se za testiranje cloud-init konfiguracije uporablja kaj drugega kot multipass dodajam datoteko
-`cloud-config-nomultipass.yaml`, ki je vsebinsko isti, le da doda uporabnika `jnlp` in shrani datoteke v `/home/jnlp`.
+`cloud-config-nomultipass.yaml`, ki je vsebinsko ista, le da doda uporabnika `jnlp` in shrani datoteke v `/home/jnlp`.
 
 *Glede na podane resurse lahko prvi zagon Firefoxa traja kar nekaj časa (kasnejši zagoni so hitrejši).*
 
