@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+  labels:
+      name: ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          serviceName: traefik
+          servicePort: 8080
+      - pathType: Prefix
+        path: "/"
+        backend:
+          serviceName: website
+          servicePort: 80
+
+

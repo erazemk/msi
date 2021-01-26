@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: traefik
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      containers:
+      - args:
+        - --api.insecure=true
+        - --providers.docker
+        image: docker.io/library/traefik:v2.3
+        name: traefik
+        ports:
+        - containerPort: 80
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: proxy-pvc
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      restartPolicy: Always
+      volumes:
+      - name: proxy-pvc
+        persistentVolumeClaim:
+          claimName: proxy-pvc

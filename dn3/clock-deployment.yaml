@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: clock
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      containers:
+      - image: ghcr.io/erazemk/msi-clock
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        name: clock
+        volumeMounts:
+        - mountPath: /date/
+          name: date-volume
+      restartPolicy: Always
+      volumes:
+      - name: date-volume
+        persistentVolumeClaim:
+          claimName: date-volume
+  

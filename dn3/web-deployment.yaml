@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    traefik.http.routers.web.rule: Host(`localhost`)
+  name: website
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  template:
+    spec:
+      containers:
+      - image: ghcr.io/erazemk/msi-website
+        name: website
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html/date/
+          name: date-volume
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      restartPolicy: Always
+      volumes:
+      - name: date-volume
+        persistentVolumeClaim:
+          claimName: date-volume
