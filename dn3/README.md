@@ -11,3 +11,9 @@ Naloga je sestavljena iz večih deploymentov:
 * *clock* zapiše trenutni čas v podatkovno bazo
 * *database* je instanca MySQL podatkovne baze, ki hrani trenutne čase
 * *website* je multi-stage build instanca hugo statične spletne strani, ki jo servira nginx
+
+### Liveness probe
+
+Liveness probe sem uporabil pri *nginx* (website) aplikaciji in sicer s parametroma `initialDelaySeconds: 5` in
+`periodSeconds: 5`, saj se statične spletne strani postavijo zelo hitro, tako da ne rabimo preveč čakati pred
+preverjanjem stanja.
