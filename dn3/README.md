@@ -1,7 +1,9 @@
 # DN3: Kubernetes provisioning
 
-Docker image-a (website in clock) sta javno dostopna na ghcr.io/erazemk/msi-{website,clock} in sta zgrajena iz
-Dockerfile-ov iz domače naloge 2 ([msi-website](../dn2/website/Dockerfile), [msi-clock](../dn2/clock/Dockerfile)).
+Docker image-a (website in clock) sta javno dostopna na
+ghcr.io/erazemk/msi-{[website](https://github.com/users/erazemk/packages/container/package/msi-website),[clock](https://github.com/users/erazemk/packages/container/package/msi-clock)}
+in sta zgrajena iz Dockerfile-ov iz domače naloge 2 ([msi-website](../dn2/website/Dockerfile),
+[msi-clock](../dn2/clock/Dockerfile)).
 
 Za ingress sem uporabil [Traefik](https://traefik.io/), tako kot v 2. domači nalogi.
 
