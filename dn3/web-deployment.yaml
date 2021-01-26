@@ -13,6 +13,17 @@ spec:
       containers:
       - image: ghcr.io/erazemk/msi-website:latest
         name: website
+        command: ["/bin/sh"]
+        args:
+        - -c
+        - >
+          nginx -g 'daemon off;' & while true; do sleep 10; done
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
         volumeMounts:
         - mountPath: /usr/share/nginx/html/date/
           name: date-volume
