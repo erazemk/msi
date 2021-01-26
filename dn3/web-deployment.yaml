@@ -11,7 +11,7 @@ spec:
   template:
     spec:
       containers:
-      - image: ghcr.io/erazemk/msi-website
+      - image: ghcr.io/erazemk/msi-website:latest
         name: website
         volumeMounts:
         - mountPath: /usr/share/nginx/html/date/

@@ -9,7 +9,7 @@ spec:
   template:
     spec:
       containers:
-      - image: ghcr.io/erazemk/msi-clock
+      - image: ghcr.io/erazemk/msi-clock:latest
         resources:
           limits:
             memory: "128Mi"
